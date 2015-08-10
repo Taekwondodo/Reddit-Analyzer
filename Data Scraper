@@ -1,0 +1,24 @@
+# __author__ = 'VedrosMJ'
+
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+
+
+driver = webdriver.Chrome('C:\Python34\Scripts\chromedriver.exe')
+driver.get("http://reddit.com")
+siteElement = driver.find_element_by_xpath("//div[@id='siteTable']")
+postElements = siteElement.find_elements_by_xpath("div[@onclick='click_thing(this)']")
+
+#Iterate through the posts and find the comment link element for each
+commentElements = [None] * len(postElements)
+current = 0
+for post in postElements:
+    commentElements[current] = post.find_element_by_xpath("div/ul/li[@class='first']/a")
+    current += 1
+
+for post in commentElements:
+    print(post.get_attribute('href'))
+
+
+
+
